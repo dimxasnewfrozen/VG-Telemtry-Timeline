@@ -1,2 +1,3 @@
-# VG-Telemtry-Timeline
+# VG Telemtry Timeline
 Build a simple canvas timeline of Vainglory telemetry data
+
