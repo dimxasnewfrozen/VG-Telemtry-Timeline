@@ -4,7 +4,7 @@ body
 	font-family: 'Oswald', sans-serif;
 	color:#eff0f2;
 	padding-top: 20px;
-  	padding-bottom: 20px;
+  padding-bottom: 20px;
 }
 
 canvas
@@ -40,9 +40,9 @@ canvas
 }
 
 /* Customize container */
-@media (min-width: 768px) {
+@media (min-width: 960px) {
   .container {
-    max-width: 730px;
+    max-width: 960px;
   }
 }
 .container-narrow > hr {
@@ -68,7 +68,7 @@ canvas
 }
 
 /* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 960px) {
   /* Remove the padding we set earlier */
   .header,
   .marketing,
@@ -89,4 +89,25 @@ canvas
 #timeline
 {
 	margin:10px;
+}
+
+.circle
+{ 
+  background: #f00;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display:inline-block;
+}
+
+#event_container
+{
+  position: fixed;
+  width: 200px;
+  height:auto;
+  font-size: 16px;
+  padding:10px;
+  background-color: #1e2126;
+  border:1px solid #eff0f2;
+  z-index: 10000
 }

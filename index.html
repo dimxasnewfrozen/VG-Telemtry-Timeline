@@ -13,6 +13,22 @@
 
     <div class="container">
       <h3>Vainglory Telemetry Timeline</h3>
+
+      <div class="row">
+        <div class="col-md-2">
+          <div class="circle" style="background-color:blue"></div> Left Team Kills
+        </div>
+
+        <div class="col-md-2">
+          <div class="circle" style="background-color:red"></div> Right Team Kills
+        </div>
+
+        <div class="col-md-2">
+        <div class="circle" style="background-color:white"></div> Minion Kills
+        </div>
+
+      </div>
+
       <div class="row">
       	<div class="col-md-12">
       	<canvas id="telemtry_map"></canvas>
@@ -25,6 +41,8 @@
       	</div>
       </div>
     </div>
+
+    <div id="event_container" class="hide"></div>
 
   	<script src="https://code.jquery.com/jquery-1.12.4.js" %}"></script>
   	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" %}"></script>
