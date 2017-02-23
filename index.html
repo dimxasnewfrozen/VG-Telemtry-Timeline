@@ -40,12 +40,37 @@
       	<div id="timeline"></div>
       	</div>
       </div>
+
+      <div id="results"></div>
+
+      <script id="entry-template" type="text/x-handlebars-template">
+        <div class="row">
+          <div class="col-md-6">
+              <div class="list-group">
+                {{#each left}}
+                  <a href="#" class="list-group-item list-group-item-action toggleItems" hero='{{this}}'>{{ this }}</a>
+                {{/each}}
+              </div>
+          </div>
+
+          <div class="col-md-6">
+              <div class="list-group">
+                {{#each right}}
+                  <a href="#" class="list-group-item list-group-item-action toggleItems" hero='{{this}}'>{{ this }}</a>
+                {{/each}}
+              </div>
+          </div>
+          
+        </div>
+      </script>
+
     </div>
 
     <div id="event_container" class="hide"></div>
 
   	<script src="https://code.jquery.com/jquery-1.12.4.js" %}"></script>
-  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" %}"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" %}"></script>
+    <script src="js/vendor/handlebars.js" %}"></script>
   	<script src="js/data.js" %}"></script>
   	<script src="js/telemtry_map.js" %}"></script>
   	

@@ -22,7 +22,13 @@ var canvas_offsetTop = canvas.offsetTop;
 var radius = 6
 var minion_radius = 4
 
+// keep track of the items that were painted
+// this allows our overall list to be smaller incase we need 
+// to loop through it frequently
 var drawn_items = []
+
+// keep track of the left and right team members/heros
+var team = {'left': [], 'right': []}
 
 start_time = new Date(data[0].time).getTime() / 1000
 end_time = new Date(data.slice(-1)[0].time).getTime() / 1000
@@ -84,6 +90,36 @@ function drawDataObject(item)
 
 	    	// add to our drawn items array:
 	    	drawn_items.push(item)
+		}
+	}
+}
+
+function buildTeamObject()
+{	
+	// ignored kill actors:
+	var ignore = ["RangedMinion", "LeadMinion", "Kraken_Captured"]
+
+	for (i = 0; i < data.length; i++) {
+
+		var hero = data[i].payload.Actor.replace(/\*/g, "")
+
+		if (ignore.indexOf(hero) <= -1)
+		{
+			// check what team the hero is on
+			if (data[i].payload.Team == "Left")
+			{	
+				if (team.left.indexOf(hero) <= -1)
+				{
+					team.left.push(hero)
+				}
+		   	}
+		   	else
+		   	{
+		    	if (team.right.indexOf(hero) <= -1)
+				{
+					team.right.push(hero)
+				}
+		   	}
 		}
 	}
 }
@@ -174,6 +210,29 @@ function drawOverlay(selectedItem, display, x, y)
 	}
 }
 
+function findHeroItems(hero)
+{	
+	// reset the drawn items
+	drawn_items = []
+	draw(function () {
+		for (i = 0; i < data.length; i++) {
+			
+			var item_actor_hero = data[i].payload.Actor.replace(/\*/g, "")
+			
+			//var item_killed_hero = data[i].payload.Killed.replace(/\*/g, "")
+			var item_killed_hero = ''
+			if (typeof data[i].payload.Killed != "undefined") {
+			   item_killed_hero = data[i].payload.Killed.replace(/\*/g, "")
+			}
+
+			if (hero == item_killed_hero || hero == item_actor_hero)
+			{	
+				drawDataObject(data[i])
+			}
+		}
+	})
+}
+
 // Initialize the page load. Draw the image then draw the telemetry items
 setTimeout(function() {
 	// reset the drawn items:
@@ -184,6 +243,7 @@ setTimeout(function() {
 	context.canvas.height = scaled_height;
 
 	draw(function () {
+
 		// loop through every item
 		for (i = 0; i < data.length; i++) { 
 		    drawDataObject(data[i])
@@ -191,9 +251,14 @@ setTimeout(function() {
 	})
 }, 10)
 
-
 // Add a jquery ui slider and interact with it
 $(document).ready(function () {
+
+	buildTeamObject()
+
+	var player_source = $('#entry-template').html();
+	var player_template = Handlebars.compile(player_source);
+	$("#results").html(player_template(team))
 
 	$( "#timeline" ).slider({
 		range: "max",
@@ -222,4 +287,13 @@ $(document).ready(function () {
 			})
 		}
 	})
+
+	// Show the hero's kills/deaths
+	$(".toggleItems").click(function() {
+		$(".toggleItems").removeClass('active')
+		$(this).addClass('active')
+		var hero = $(this).attr("hero");
+		findHeroItems(hero)
+	})
+	drawn_items = []
 })
