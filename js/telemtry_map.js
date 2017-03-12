@@ -47,7 +47,7 @@ function draw(callback)
 
     	callback()
     };
-    imageObj.src = '../telemtry_canvas/img/vainglory-map.png';
+    imageObj.src = 'img/vainglory-map.png';
 }
 
 function drawDataObject(item)
