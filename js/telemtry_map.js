@@ -254,6 +254,17 @@ setTimeout(function() {
 // Add a jquery ui slider and interact with it
 $(document).ready(function () {
 
+	var telemtry_source_file = $("#telemetry_source").val()
+
+	$.ajax({ 
+	    type: 'GET', 
+	    url: telemtry_source_file, 
+	    dataType: 'json',
+	    success: function (data) { 
+	        console.log(data)
+	    }
+	});
+
 	buildTeamObject()
 
 	var player_source = $('#entry-template').html();
